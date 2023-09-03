@@ -1,0 +1,27 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+class CacheNetwork{
+   static late SharedPreferences sharedPref;
+
+  // set , get , delete , clear (key,value)
+
+static Future cacheInitialization()async{
+  sharedPref = await SharedPreferences.getInstance();
+}
+
+static Future<bool> insertToCache({required String key,required String value})async{
+  return await sharedPref.setString(key, value);
+}
+
+static String getCacheData({required String key}){
+  return sharedPref.getString(key) ?? 'there is no data';
+}
+
+static Future<bool> deleteCacheItem({required String key})async{
+  return await sharedPref.remove(key);
+}
+
+static Future<bool> clearData()async{
+  return await sharedPref.clear();
+}
+}
